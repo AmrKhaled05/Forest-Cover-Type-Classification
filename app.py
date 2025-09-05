@@ -6,6 +6,7 @@ warnings.filterwarnings("ignore")
 logistic_regression_model = joblib.load("logistic_regression_model.joblib")
 knn_model = joblib.load("knn_model.joblib")
 random_forest_model = joblib.load("random_forest_model.joblib")
+xgb_model = joblib.load("xgb_model.joblib")
 st.title("Forest Cover Type")
 elevation = st.slider('Elevation', min_value=1859, max_value=3858, value=2850)
 aspect = st.slider('Aspect', min_value=0, max_value=360, value=180)
@@ -27,11 +28,13 @@ if st.button("Predict Forest Cover Type"):
     
     lr_pred = logistic_regression_model.predict(input_data)
     knn_pred = knn_model.predict(input_data)
-    rf_pred = random_forest_model.predict(input_data)   
+    rf_pred = random_forest_model.predict(input_data)
+    xgb_pred=xgb_model.predict(input_data)   
     predictions = [
         ("Logistic Regression", lr_pred[0]),
         ("KNN", knn_pred[0]),
         ("Random Forest", rf_pred[0]),
+        ("XGBClassifier",xgb_pred[0])
     ]
 
     st.subheader("Prediction Results")
